@@ -1,5 +1,6 @@
-## Version 2025/07/18
+## Version 2025/10/01
 # make sure that your nextcloud container is named nextcloud
+# make sure that your HaRP container is named appapi-harp
 # make sure that your dns has a cname set for nextcloud
 # assuming this container is called "swag", edit your nextcloud container's config
 # located at /config/www/nextcloud/config/config.php and add the following lines before the ");":
@@ -44,4 +45,17 @@ server {
         # Disable proxy buffering
         proxy_buffering off;
     }
+
+    # AppAPI related location is commented out by default. Uncomment if using Nextcloud's HaRP
+    # see https://github.com/nextcloud/HaRP
+#    location /exapps/ {
+#        set $upstream_app appapi-harp;
+#        set $upstream_port 8780;
+#        set $upstream_proto http;
+#        proxy_pass $upstream_proto://$upstream_app:$upstream_port;
+#        proxy_set_header Host $host;
+#        proxy_set_header X-Real-IP $remote_addr;
+#        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+#        proxy_set_header X-Forwarded-Proto $scheme;
+#    }
 }
